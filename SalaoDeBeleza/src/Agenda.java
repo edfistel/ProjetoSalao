@@ -1,8 +1,21 @@
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Agenda {
     private String nomeCliente;
     private String servico;
     private String data;
-    private String horario;
+
+    private ArrayList<Agenda> agendas = new ArrayList<>();
+
+    public ArrayList<Agenda> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(ArrayList<Agenda> agendas) {
+        this.agendas = agendas;
+    }
 
     public String getNomeCliente() {
         return nomeCliente;
@@ -27,12 +40,21 @@ public class Agenda {
     public void setData(String data) {
         this.data = data;
     }
-
-    public String getHorario() {
-        return horario;
+    public Boolean validarDisponibilidade(String data,Servico servico){
+        for (int i=0; i < this.agendas.size(); i++){
+            if (agendas.get(i).getData().equals(data) && agendas.get(i).getServico().equals(servico.getNome())){
+                return false;
+            }
+        }
+        return true; //retorna verdadeiro se tiver a data disponivel para o serviço selecionado.
     }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
+    public void listarAgendamentos(){
+        for (int i =0; i < this.agendas.size(); i++){
+            System.out.println("\nAgendamentos: \n");
+            System.out.println("Servico: " + agendas.get(i).getServico());
+            System.out.println("Data: " + agendas.get(i).getData());
+            System.out.println("Nome Do Cliente: " + agendas.get(i).getNomeCliente());
+            System.out.println("");
+        }
     }
 }
